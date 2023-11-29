@@ -1,0 +1,16 @@
+<div class="list-group sidebar">
+  <button
+    type="button"
+    class="list-group-item list-group-item-action"
+    aria-current="true"
+    *ngFor="let item of contacts"
+  >
+    <img
+      src="../../assets/images/profile.svg"
+      alt=""
+      width="35"
+      class="bg-white rounded-circle"
+    />
+    <span>{{ item.contactFirstName }}</span>
+  </button>
+</div>

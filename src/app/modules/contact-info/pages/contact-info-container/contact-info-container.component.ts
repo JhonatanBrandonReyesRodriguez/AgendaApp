@@ -12,7 +12,7 @@ export class ContactInfoContainerComponent implements OnInit {
   ngOnInit() {
     this.initContactInfo();
   }
-
+  //
   public contact = new Array();
   initContactInfo(): void {
     this.contactInfoService.getOneContact({ idContact: '1' }).subscribe(

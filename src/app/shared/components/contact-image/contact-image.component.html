@@ -1,0 +1,11 @@
+<img
+  [src]="image"
+  alt=""
+  style="width: 100%"
+  class="bg-white rounded-circle"
+  *ngIf="image; else defaultImage"
+/>
+
+<ng-template #defaultImage>
+  <img [src]="defaultUrl" alt="" />
+</ng-template>

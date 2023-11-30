@@ -1,0 +1,67 @@
+<div class="container-fluid">
+  <div class="row d-flex justify-content-center">
+    <!-- <app-contact-card class="col-12 col-sm-10 col-lg-8 p-2"> </app-contact-card> -->
+
+    <div class="col-12 col-sm-10 col-lg-8 p-2">
+      <div class="d-flex rounded-4 flex-column p-4 bg-white shadow">
+        <div class="d-flex align-items-center flex-column flex-lg-row">
+          <!-- <img
+            src="../../../../../assets/images/aquaman.jpg"
+            width="150"
+            class="rounded-circle p-2"
+            alt=""
+          /> -->
+
+          <app-contact-image
+            style="
+              width: 8em;
+              height: 8em;
+              border: 2px solid rgb(82, 82, 82);
+              border-radius: 50%;
+            "
+            [img]="contact[0].contactPhoto"
+          ></app-contact-image>
+
+          <h3 class="text-center p-3">
+            {{ contact[0].contactId }} Jhonatan Reyes
+          </h3>
+        </div>
+
+        <div class="container-fluid">
+          <div class="row d-flex justify-content-start">
+            <span class="col-4 col-lg-2">Empresa:</span>
+            <span class="col-6 col-sm-8 col-lg-10"> Ninguna</span>
+          </div>
+          <div class="row d-flex justify-content-start">
+            <span class="col-4 col-lg-2"> Correos: </span
+            ><span class="col-6 col-sm-8 col-lg-10 text-break"
+              >jhonybrandonreyes@gmail.com</span
+            >
+          </div>
+
+          <div class="row d-flex justify-content-start">
+            <span class="col-4 col-lg-2">Cumpleaños: </span>
+            <span class="col-6 col-sm-8 col-lg-10">17 de mayo del 2000</span>
+          </div>
+
+          <div class="row d-flex justify-content-start">
+            <span class="col-4 col-lg-2">Alias: </span>
+            <span class="col-6 col-sm-8 col-lg-10">El jhony</span>
+          </div>
+          <div class="row d-flex justify-content-start">
+            <span class="col-4 col-lg-2">Notas: </span
+            ><span class="col-6 col-sm-8 col-lg-10">Sin notas</span>
+          </div>
+          <div class="row d-flex justify-content-start">
+            <span class="col-4 col-lg-2">Etiquetas: </span
+            ><span class="col-6 col-sm-8 col-lg-10">Sin etiquetas</span>
+          </div>
+          <div class="row d-flex justify-content-start">
+            <span class="col-4 col-lg-2">Telefonos: </span
+            ><span class="col-6 col-sm-8 col-lg-10">4434484067</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

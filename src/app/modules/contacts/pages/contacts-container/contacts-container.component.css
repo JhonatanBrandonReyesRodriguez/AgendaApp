@@ -1,0 +1,12 @@
+.contact-img {
+  backdrop-filter: blur(1em);
+}
+
+.row span:nth-child(2) {
+  color: rgb(86, 86, 86);
+  font-weight: bold;
+}
+
+.row span:nth-child(1) {
+  text-align: right;
+}

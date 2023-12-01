@@ -15,8 +15,8 @@ export class ContactInfoContainerComponent implements OnInit {
   //
   public contact = new Array();
   initContactInfo(): void {
-    this.contactInfoService.getOneContact({ idContact: '1' }).subscribe(
-      (response) => {
+    this.contactInfoService.getOneContact({ idContact: '1' }).subscribe({
+      next: (response) => {
         if (response.succeed) {
           console.log('Datos: ', response);
           this.contact = response.result.list;
@@ -24,10 +24,9 @@ export class ContactInfoContainerComponent implements OnInit {
           console.log('No se pudieron cargar los datos', response.error);
         }
       },
-
-      (error) => {
+      error: (error) => {
         console.log('Error: ', error);
-      }
-    );
+      },
+    });
   }
 }

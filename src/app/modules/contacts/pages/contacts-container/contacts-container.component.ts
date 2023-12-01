@@ -26,8 +26,8 @@ export class ContactsContainerComponent implements OnInit {
         limit: 10,
         searchTerm: '',
       })
-      .subscribe(
-        (response) => {
+      .subscribe({
+        next: (response) => {
           if (response.succeed) {
             console.log('Datos: ', response);
             this.contacts = response.result.list;
@@ -37,11 +37,10 @@ export class ContactsContainerComponent implements OnInit {
             console.log('No se pudieron cargar los datos', response.error);
           }
         },
-
-        (error) => {
+        error: (error) => {
           console.log('Error: ', error);
-        }
-      );
+        },
+      });
   }
   toCardContact() {
     this.router.navigate(['contact-info', { id: this.id }]);

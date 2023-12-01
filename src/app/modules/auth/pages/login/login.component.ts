@@ -32,25 +32,17 @@ export class LoginComponent {
     console.log('is form valid?', this.formLogin.valid);
     const userData = this.formLogin.value;
     if (this.formLogin.valid) {
-      console.log('Datos del formulario: ', userData);
-      this.authService.login(userData).subscribe(
-        (response) => {
+      this.authService.login(userData).subscribe({
+        next: (response) => {
           if (response.succeed) {
-            console.log('datos: ', response);
+            console.log('Sesión: ', response);
             this._snackBar.open('¡Bienvenido!', 'Aceptar', {
               duration: 3000,
               panelClass: ['green-snackbar'],
             });
-            // console.log('Inicio de sesión exitoso!');
-            // console.log('Token de acceso:', response.result.accessToken);
-            // console.log(
-            //   'Token de actualización:',
-            //   response.result.refreshToken
-            // );
-            //
+
             localStorage.setItem('accessToken', response.result.accessToken);
             localStorage.setItem('refreshToken', response.result.refreshToken);
-            //
             this.router.navigate(['home/contacts']);
           } else {
             console.log('Inicio de sesión fallido:', response.message);
@@ -64,7 +56,7 @@ export class LoginComponent {
             );
           }
         },
-        (error) => {
+        error: (error) => {
           console.log(error);
           this._snackBar.open(
             'Error en la comunicación con el servidor',
@@ -74,8 +66,8 @@ export class LoginComponent {
               panelClass: ['red-snackbar'],
             }
           );
-        }
-      );
+        },
+      });
     }
   }
 }

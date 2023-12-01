@@ -10,7 +10,7 @@ export class ContactInfoContainerComponent implements OnInit {
   constructor(private contactInfoService: ContactInfoService) {}
 
   ngOnInit() {
-    this.initContactInfo();
+    // this.initContactInfo();
   }
   //
   public contact = new Array();

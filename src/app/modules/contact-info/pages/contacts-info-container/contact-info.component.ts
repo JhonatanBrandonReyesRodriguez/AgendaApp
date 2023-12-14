@@ -64,14 +64,14 @@ export class ContactInfoContainerComponent implements OnInit {
     private localStorageService: LocalStorageService
   ) {
     this.editContactForm = this.formBuilder.group({
-      contactPhoto: new FormControl('', [Validators.required]),
+      contactPhoto: new FormControl(''),
       contactFirstName: new FormControl('', [Validators.required]),
       contactLastName: new FormControl('', [Validators.required]),
-      contactCompany: new FormControl('', [Validators.required]),
+      contactCompany: new FormControl(''),
       contactEmails: this.formBuilder.array([]),
       contactBirthday: new FormControl('', [Validators.required]),
-      contactAlias: new FormControl('', [Validators.required]),
-      contactNotes: new FormControl('', [Validators.required]),
+      contactAlias: new FormControl(''),
+      contactNotes: new FormControl(''),
       contactTags: this.formBuilder.array([]),
       contactPhones: this.formBuilder.array([]),
     });
@@ -196,8 +196,6 @@ export class ContactInfoContainerComponent implements OnInit {
       for (let i = 0; i < this.phoneIndex; i++) {
         this.contactPhonesFormArray.push(this.auxPhoneArray[i]);
       }
-    } else {
-      alert('No has modificado los datos');
     }
   }
 
@@ -208,25 +206,26 @@ export class ContactInfoContainerComponent implements OnInit {
 
   //Update contact info
   public updateContactInfo() {
+    // if (this.editContactForm.valid) {
     this.validateInputInsertion();
     this.deleteAllComponents();
 
     const contactData = this.editContactForm.value;
     const contactId = this.contact.contactId;
 
-    //descomentar lo de abajo justo cuando tenga resuelto lo de los correos y etiquetas
+    // descomentar lo de abajo justo cuando tenga resuelto lo de los correos y etiquetas
     // this.localStorageService.setItem('contact', contactData);
 
-    console.log('info del form del usuaio', contactData);
+    // console.log('info del form del usuaio', contactData);
 
-    console.log(
-      'info de usuario de localStorage',
-      this.localStorageService.getItem('contact')
-    );
+    // console.log(
+    //   'info de usuario de localStorage',
+    //   this.localStorageService.getItem('contact')
+    // );
 
     this.resetValues();
 
-    console.log('Formulario con datos actualizados:', contactData);
+    console.log('Formulario con nuevos datos:', contactData);
 
     this.updateContactService.updateContact(contactData, contactId).subscribe({
       next: (response) => {
@@ -240,5 +239,6 @@ export class ContactInfoContainerComponent implements OnInit {
         console.log('Error: ', error);
       },
     });
+    // }
   }
 }

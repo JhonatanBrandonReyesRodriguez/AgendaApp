@@ -11,6 +11,41 @@
       <div class="d-flex rounded-4 flex-column shadow p-2 p-lg-3 bg-white">
         <div class="bg-white p-2">Contactos: ({{ total - counter }})</div>
 
+        <!-- <div class="container">
+          <div class="row p-1 p-sm-2 justify-content-evenly">
+            <span class="col col col-12 col-sm-6 col-md-5">Nombre</span>
+            <span class="col col col-sm-6 col-md-3">Correo</span>
+            <span class="col col col-md-4">Teléfono</span>
+          </div>
+        </div> -->
+
+        <!--  -->
+
+        <div
+          class="d-flex contact-item p-1 d-none d-sm-flex border-bottom border-4"
+        >
+          <div class="col-10 col-sm-11 d-flex">
+            <div class="d-flex align-items-center col-12 col-sm-6 col-md-5">
+              <span class="p-2 text-break fw-bold">Nombre</span>
+            </div>
+
+            <div class="d-none d-sm-flex align-items-center col-sm-6 col-md-4">
+              <span class="p-2 text-break fw-bold">Correo </span>
+              <ng-template #noEmail>
+                <span class="p-2 text-break noItemFind"
+                  >Sin Email
+                </span></ng-template
+              >
+            </div>
+
+            <div
+              class="d-none d-md-flex align-items-center col-2 col-sm-1 col-md-3"
+            >
+              <span class="p-2 text-break fw-bold">Teléfono </span>
+            </div>
+          </div>
+        </div>
+        <!--  -->
         <div
           class="d-flex contact-item rounded-end-4 rounded-start-4 p-1 p-sm-2"
           *ngFor="let item of contacts; let i = index"
@@ -60,7 +95,7 @@
             class="col-2 col-sm-1 d-flex justify-content-center align-items-center"
           >
             <button
-              class="btn btn-delete-contact"
+              class="btn btn-delete-contact btn-sm"
               (click)="deleteContact(item.contactId)"
             >
               ✕

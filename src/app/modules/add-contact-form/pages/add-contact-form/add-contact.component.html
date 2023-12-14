@@ -3,10 +3,10 @@
     <div class="col-12 col-sm-10 p-2">
       <h3 class="p-2 title-header">Nuevo contacto</h3>
       <div class="rounded-4 shadow p-2 p-lg-3 bg-white">
-        <form (submit)="addContact()">
+        <form (submit)="addContact()" [formGroup]="addContactForm">
           <!-- non dynamic components -->
-          <div class="non-dynamic-components d-flex flex-wrap">
-            <div class="col-12 col-sm-5 col-md-4 col-lg-3 p-2">
+          <div class="non-dynamic-components d-flex flex-wrap p-sm-3 p-md-4">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 p-2">
               <label for="inputPhoto" class="form-label">Foto</label>
               <input
                 type="file"
@@ -16,30 +16,33 @@
               />
               <div id="photoHelp" class="form-text"></div>
             </div>
-            <div class="col-12 col-sm-5 col-md-4 col-lg-3 p-2">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 p-2">
               <label for="inputName" class="form-label">Nombre</label>
               <input
                 type="text"
+                [formControlName]="contactFirstName"
                 class="form-control"
                 id="inputName"
                 aria-describedby="nameHelp"
               />
               <div id="nameHelp" class="form-text"></div>
             </div>
-            <div class="col-12 col-sm-5 col-md-4 col-lg-3 p-2">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 p-2">
               <label for="inputSurname" class="form-label">Apellido</label>
               <input
                 type="text"
+                [formControlName]="contactLastName"
                 class="form-control"
                 id="inputSurname"
                 aria-describedby="surnameHelp"
               />
               <div id="surnameHelp" class="form-text"></div>
             </div>
-            <div class="col-12 col-sm-5 col-md-4 col-lg-3 p-2">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 p-2">
               <label for="inputCompany" class="form-label">Compañía</label>
               <input
                 type="text"
+                [formControlName]="contactCompany"
                 class="form-control"
                 id="inputCompany"
                 aria-describedby="CompanyHelp"
@@ -47,20 +50,22 @@
               <div id="CompanyHelp" class="form-text"></div>
             </div>
 
-            <div class="col-12 col-sm-5 col-md-4 col-lg-3 p-2">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 p-2">
               <label for="inputBirthday" class="form-label">Cumpleaños</label>
               <input
                 type="date"
+                [formControlName]="contactBirthday"
                 class="form-control"
                 id="inputBirthday"
                 aria-describedby="birthdayHelp"
               />
               <div id="birthdayHelp" class="form-text"></div>
             </div>
-            <div class="col-12 col-sm-5 col-md-4 col-lg-3 p-2">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 p-2">
               <label for="inputAlias" class="form-label">Alias</label>
               <input
                 type="text"
+                [formControlName]="contactAlias"
                 class="form-control"
                 id="inputAlias"
                 aria-describedby="aliasHelp"
@@ -68,10 +73,11 @@
               <div id="aliasHelp" class="form-text"></div>
             </div>
 
-            <div class="col-12 col-sm-5 col-md-4 col-lg-3 p-2">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 p-2">
               <label for="inputNotes" class="form-label">Notas</label>
               <input
                 type="text"
+                [formControlName]="contactNotes"
                 class="form-control"
                 id="inputNotes"
                 aria-describedby="notesHelp"
@@ -81,27 +87,35 @@
           </div>
 
           <!-- dynamic components -->
-          <div class="d-flex dynamic-components flex-wrap border-top border-3">
-            <div class="col-12 col-sm-5 col-md-4 col-lg-3 p-2">
+          <div
+            class="d-flex dynamic-components flex-wrap border-top border-3 p-sm-3 p-md-4"
+          >
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 p-2">
               <label for="inputPhone" class="form-label">Telefonos</label>
-              <input
-                type="text"
-                class="form-control"
-                id="inputPhone"
-                aria-describedby="phoneHelp"
-              />
 
               <ng-template dynamicPhoneInput></ng-template>
 
-              <div id="phoneHelp" class="form-text"></div>
+              <button
+                type="button"
+                name=""
+                class="btn bg-danger btn-sm"
+                id=""
+                (click)="deleteComponent(0)"
+              >
+                ✕
+              </button>
+
               <input
                 type="button"
-                (click)="createComponent()"
-                value="Nuevo telefono"
+                name=""
+                class="btn btn-info btn-sm"
+                id=""
+                value="Agregar telefono"
+                (click)="addNewPhone()"
               />
             </div>
 
-            <div class="col-12 col-sm-5 col-md-4 col-lg-3 p-2">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 p-2">
               <label for="inputEmail" class="form-label">Correos</label>
               <input
                 type="email"
@@ -111,7 +125,7 @@
               />
               <div id="labelHelp" class="form-text"></div>
             </div>
-            <div class="col-12 col-sm-5 col-md-4 col-lg-3 p-2">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 p-2">
               <label for="inputLabels" class="form-label">Etiquetas</label>
               <input
                 type="text"
@@ -122,7 +136,16 @@
               <div id="labelHelp" class="form-text"></div>
             </div>
           </div>
-          <input type="submit" class="btn btn-primary m-auto" value="Aceptar" />
+
+          <div class="d-flex justify-content-center justify-content-md-end p-4">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="addContactForm.invalid"
+            >
+              Crear contacto
+            </button>
+          </div>
         </form>
       </div>
     </div>

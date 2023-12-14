@@ -40,7 +40,7 @@ export class LoginComponent {
           if (response.succeed) {
             console.log('datos: ', response);
             this._snackBar.open('¡Bienvenido!', 'Aceptar', {
-              duration: 3000,
+              duration: 5000,
               panelClass: ['green-snackbar'],
             });
 

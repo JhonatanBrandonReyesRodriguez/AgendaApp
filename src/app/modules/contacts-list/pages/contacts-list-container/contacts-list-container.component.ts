@@ -38,7 +38,9 @@ export class ContactsListContainerComponent implements OnInit {
       .subscribe({
         next: (response) => {
           if (response.succeed) {
-            console.log('Datos: ', response);
+            console.log('offset:', offset);
+
+            console.log('Listado de contactos: ', response);
             this.contacts = response.result.list;
             this.total = response.result.count;
           } else {

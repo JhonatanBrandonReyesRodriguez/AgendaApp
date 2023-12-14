@@ -1,14 +1,17 @@
 <div [formGroup]="phoneGroup">
   <input
     type="text"
+    id="inputPhone"
     [formControl]="phoneControl"
     placeholder="Ingresa el número de teléfono"
-    class="p-1 my-1 border rounded-3 col-12 col-sm-5 col-md-4 col-lg-3 col-xxl-2"
+    class="p-1 my-1 border rounded-3 w-100"
   />
 
   <div
+    class="alert alert-danger"
     *ngIf="phoneControl.invalid && (phoneControl.dirty || phoneControl.touched)"
+    role="alert"
   >
-    <p>El teléfono debe tener al menos 10 dígitos.</p>
+    <span> El teléfono debe tener al menos 10 dígitos</span>
   </div>
 </div>

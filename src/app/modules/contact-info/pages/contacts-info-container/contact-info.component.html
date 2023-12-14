@@ -63,11 +63,12 @@
                     let emailControl of contactEmailsFormArray.controls;
                     let i = index
                   "
+                  [formGroupName]="i"
                   class="row flex-column flex-lg-row"
                 >
                   <input
                     type="text"
-                    [formControlName]="i"
+                    [formControlName]="emailValue"
                     placeholder="Correo electrónico"
                     class="p-1 my-1 rounded-3 border"
                   />
@@ -137,20 +138,31 @@
             </div>
 
             <div class="col-8 col-lg-9 d-flex flex-column p-0">
-              <div class="container" formArrayName="contactTags">
-                <div class="row flex-row">
-                  <input
+              <div class="container">
+                <div class="row row-cols-auto" formArrayName="contactTags">
+                  <div
+                    class="col d-flex align-items-center"
                     *ngFor="
-                      let tagsControl of contactTagsFormArray.controls;
+                      let tag of contactTagsFormArray.controls;
                       let i = index
                     "
-                    type="text"
-                    [formControlName]="i"
-                    readonly
-                    placeholder="Etiquetas"
-                    class="p-1 m-1 rounded-3 text-center border"
-                    [style.width]="tagsControl.value.length * 12 + 'px'"
-                  />
+                    [formGroupName]="i"
+                  >
+                    <input
+                      type="text"
+                      [formControlName]="tagValue"
+                      readonly
+                      placeholder="Etiquetas"
+                      class="p-1 m-1 rounded-3 text-center tag border"
+                      [style.width]="tag.value.tagValue.length * 12 + 'px'"
+                    />
+                    <input
+                      type="button"
+                      class="btn btn-sm rounded bg-danger"
+                      value="✕"
+                      (click)="deleteTag()"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -209,15 +221,14 @@
                 <div class="col-12 col-sm-5 col-md-4 col-lg-3 col-xxl-2">
                   <ng-template dynamicPhoneInput></ng-template>
                 </div>
-                <button
+                <input
                   type="button"
                   name=""
                   class="btn bg-danger btn-sm"
                   id=""
+                  value="✕"
                   (click)="deleteComponent(0)"
-                >
-                  ✕
-                </button>
+                />
 
                 <input
                   type="button"

@@ -2,8 +2,8 @@
   backdrop-filter: blur(1em);
 }
 
-.tags div:nth-child(2) input {
-  background-color: rgb(111, 140, 255);
+.tags div:nth-child(2) input.tag {
+  background-color: rgb(109, 121, 172);
   color: white !important;
 }
 
@@ -28,4 +28,8 @@ span:not(.contact-card-info > div > span, .phone-type) {
 input:focus {
   outline: none;
   background-color: rgb(219, 219, 219);
+}
+
+input[type="button"] {
+  color: #fff;
 }

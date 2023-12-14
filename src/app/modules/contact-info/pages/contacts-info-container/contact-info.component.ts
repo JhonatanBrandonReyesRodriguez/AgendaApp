@@ -19,6 +19,7 @@ import { DynamicPhoneComponent } from 'src/app/shared/components/dynamic-phone/d
 import { DynamicHostDirective } from 'src/app/shared/directives/dynamic-host.directive';
 import { UpdateContactService } from '../../services/update-contact.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-contact-info',
@@ -37,8 +38,11 @@ export class ContactInfoContainerComponent implements OnInit {
   contactNotes: string = 'contactNotes';
   contactTags: string = 'contactTags';
   contactPhones: string = 'contactPhones';
-  phoneValue: string = 'phoneValue';
 
+  //individual values
+  phoneValue: string = 'phoneValue';
+  tagValue: string = 'tagValue';
+  emailValue: string = 'emailValue';
   //form group
   editContactForm!: FormGroup;
 
@@ -61,7 +65,8 @@ export class ContactInfoContainerComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private updateContactService: UpdateContactService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private _snackBar: MatSnackBar
   ) {
     this.editContactForm = this.formBuilder.group({
       contactPhoto: new FormControl(''),
@@ -104,12 +109,11 @@ export class ContactInfoContainerComponent implements OnInit {
     this.emailsArray = this.editContactForm.get('contactEmails') as FormArray;
     this.emailsArray.clear();
     this.contact.contactEmails.map((email: Email) => {
-      this.emailsArray.push(
-        new FormControl(email.emailValue, [
-          Validators.required,
-          Validators.email,
-        ])
-      );
+      const emailFormGroup = new FormGroup({
+        emailId: new FormControl(email.emailId),
+        emailValue: new FormControl(email.emailValue),
+      });
+      this.emailsArray.push(emailFormGroup);
     });
 
     //PHONES
@@ -121,7 +125,6 @@ export class ContactInfoContainerComponent implements OnInit {
         phoneValue: new FormControl(phone.phoneValue, Validators.required),
         phoneType: new FormControl(phone.phoneType, Validators.required),
       });
-
       this.phonesArray.push(phoneFormGroup);
     });
 
@@ -129,8 +132,14 @@ export class ContactInfoContainerComponent implements OnInit {
     this.tagsArray = this.editContactForm.get('contactTags') as FormArray;
     this.tagsArray.clear();
     this.contact.contactTags.map((tag: Tag) => {
-      this.tagsArray.push(new FormControl(tag.tagValue));
+      const tagFormGroup = new FormGroup({
+        tagId: new FormControl(tag.tagId),
+        tagValue: new FormControl(tag.tagValue),
+      });
+      this.tagsArray.push(tagFormGroup);
     });
+
+    console.log('arreglo', this.contactTagsFormArray.controls);
   }
 
   //getters for form arrays
@@ -175,6 +184,10 @@ export class ContactInfoContainerComponent implements OnInit {
     if (this.componentReference) {
       this.createComponent(phoneFormGroup, phone);
     }
+  }
+
+  deleteTag() {
+    alert('holi');
   }
 
   public deleteAllComponents() {
@@ -231,6 +244,11 @@ export class ContactInfoContainerComponent implements OnInit {
       next: (response) => {
         if (response.succeed) {
           console.log('Actualización exitosa: ', response);
+
+          this._snackBar.open('Actualización exitosa', 'Aceptar', {
+            duration: 5000,
+            panelClass: ['green-snackbar'],
+          });
         } else {
           console.log('No se pudieron cargar los datos', response.error);
         }

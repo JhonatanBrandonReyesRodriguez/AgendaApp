@@ -228,8 +228,7 @@ export class ContactInfoContainerComponent implements OnInit {
     const contactData = this.editContactForm.value;
     const contactId = this.contact.contactId;
 
-    // descomentar lo de abajo justo cuando tenga resuelto lo de los correos y etiquetas
-    this.localStorageService.setItem('contact', contactData);
+    //this.localStorageService.setItem('contact', contactData);
 
     // console.log('info del form del usuaio', contactData);
 

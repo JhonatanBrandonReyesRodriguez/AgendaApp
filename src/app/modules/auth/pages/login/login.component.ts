@@ -38,7 +38,7 @@ export class LoginComponent {
       this.authService.login(userData).subscribe({
         next: (response) => {
           if (response.succeed) {
-            console.log('datos: ', response);
+            console.log('Respuesta: ', response);
             this._snackBar.open('¡Bienvenido!', 'Aceptar', {
               duration: 5000,
               panelClass: ['green-snackbar'],

@@ -2,10 +2,10 @@
   backdrop-filter: blur(1em);
 }
 
-.tags div:nth-child(2) input.tag {
+/* .tags div:nth-child(2) input.tag {
   background-color: rgb(109, 121, 172);
   color: white !important;
-}
+} */
 
 span {
   line-height: normal;

@@ -57,22 +57,37 @@
 
             <!--  -->
             <div class="col-8 col-lg-9 d-flex flex-column p-1">
-              <div class="container" formArrayName="contactEmails">
-                <div
-                  *ngFor="
-                    let emailControl of contactEmailsFormArray.controls;
-                    let i = index
-                  "
-                  [formGroupName]="i"
-                  class="row flex-column flex-lg-row"
-                >
-                  <input
-                    type="text"
-                    [formControlName]="emailValue"
-                    placeholder="Correo electrónico"
-                    class="p-1 my-1 rounded-3 border"
-                  />
+              <div class="container">
+                <div class="row row-cols-1" formArrayName="contactEmails">
+                  <div
+                    *ngFor="
+                      let emailControl of contactEmailsFormArray.controls;
+                      let i = index
+                    "
+                    [formGroupName]="i"
+                    class="col position-relative"
+                  >
+                    <input
+                      type="text"
+                      [formControlName]="emailValue"
+                      placeholder="Correo electrónico"
+                      class="p-1 my-1 rounded-3 border w-100"
+                    />
+
+                    <input
+                      type="button"
+                      class="btn btn-sm rounded bg-danger position-absolute top-50 end-0 translate-middle-y"
+                      value="✕"
+                      (click)="deleteEmail(i + 1)"
+                    />
+                  </div>
                 </div>
+                <input
+                  type="button"
+                  value="Añadir correo"
+                  class="btn btn-sm bg-primary"
+                  (click)="addNewEmail()"
+                />
               </div>
             </div>
             <!--  -->
@@ -153,7 +168,7 @@
                       [formControlName]="tagValue"
                       readonly
                       placeholder="Etiquetas"
-                      class="p-1 m-1 rounded-3 text-center tag border"
+                      class="p-1 m-1 rounded-3 text-center bg-primary-subtle border"
                       [style.width]="tag.value.tagValue.length * 12 + 'px'"
                     />
                     <input
@@ -193,7 +208,7 @@
                     placeholder="Teléfono"
                     class="p-1 my-1 border rounded-3 col-12 col-sm-5 col-md-4 col-lg-3 col-xxl-2"
                   />
-                  <!-- <p
+                  <p
                     class="my-1 p-1 phone-type col-12 col-sm-7 col-md-8 col-lg-9 col-xxl-10"
                   >
                     <img
@@ -215,7 +230,7 @@
                       *ngIf="contact.contactPhones[i].phoneType == 'mobile'"
                     />
                     {{ contact.contactPhones[i].phoneType }}
-                  </p> -->
+                  </p>
                 </div>
 
                 <div class="col-12 col-sm-5 col-md-4 col-lg-3 col-xxl-2">
@@ -233,7 +248,7 @@
                 <input
                   type="button"
                   name=""
-                  class="btn btn-info btn-sm"
+                  class="btn btn-primary btn-sm"
                   id=""
                   value="Agregar telefono"
                   (click)="addNewPhone()"

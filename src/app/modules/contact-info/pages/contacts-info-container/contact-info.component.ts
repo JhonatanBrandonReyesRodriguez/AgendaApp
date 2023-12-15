@@ -67,8 +67,17 @@ export class ContactInfoContainerComponent implements OnInit {
     private updateContactService: UpdateContactService,
     private localStorageService: LocalStorageService,
     private _snackBar: MatSnackBar
-  ) {
+  ) {}
+
+  ngOnInit(): void {
+    this.displayContactInfo();
+    this.initForm();
+    this.setFormData();
+  }
+
+  initForm() {
     this.editContactForm = this.formBuilder.group({
+      contactId: this.contact.contactId,
       contactPhoto: new FormControl(''),
       contactFirstName: new FormControl('', [Validators.required]),
       contactLastName: new FormControl('', [Validators.required]),
@@ -82,11 +91,6 @@ export class ContactInfoContainerComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.displayContactInfo();
-    this.setFormData();
-  }
-
   public displayContactInfo() {
     this.contact = this.localStorageService.getItem('contact');
     console.log('Info del contacto', this.contact);
@@ -94,6 +98,7 @@ export class ContactInfoContainerComponent implements OnInit {
 
   setFormData() {
     this.editContactForm.patchValue({
+      contactId: this.contact.contactId,
       contactPhoto: this.contact.contactPhoto,
       contactCompany: this.contact.contactCompany,
       contactFirstName: this.contact.contactFirstName,
@@ -139,8 +144,6 @@ export class ContactInfoContainerComponent implements OnInit {
       });
       this.tagsArray.push(tagFormGroup);
     });
-
-    console.log('arreglo', this.contactTagsFormArray.controls);
   }
 
   //getters for form arrays
@@ -168,15 +171,18 @@ export class ContactInfoContainerComponent implements OnInit {
     this.componentRef.instance.phoneGroup = phoneGroup;
     this.componentRef.instance.phoneControl = phoneControl;
     this.componentReference.push(this.componentRef);
-    this.phoneIndex = this.componentReference.length;
+    this.phoneIndex = this.dynamicHost.indexOf(this.componentRef.hostView) + 1;
   }
 
   //dynamic component functions
   public addNewPhone(): void {
     const phoneFormGroup = new FormGroup({
-      phoneId: new FormControl('', Validators.required),
+      phoneId: new FormControl(
+        this.phoneIndex + this.contactPhonesFormArray.length + 1,
+        Validators.required
+      ),
       phoneValue: new FormControl('', Validators.required),
-      phoneType: new FormControl('', Validators.required),
+      phoneType: new FormControl('mobile', Validators.required),
     });
 
     const phone = phoneFormGroup.controls.phoneValue;
@@ -187,9 +193,30 @@ export class ContactInfoContainerComponent implements OnInit {
     }
   }
 
+  public addNewEmail() {
+    const emailFormGroup = new FormGroup({
+      emailId: new FormControl(
+        this.phoneIndex + this.contactPhonesFormArray.length + 1
+      ),
+      emailValue: new FormControl(''),
+    });
+
+    this.contactEmailsFormArray.push(emailFormGroup);
+  }
+
+  public deleteEmail(index: number) {
+    this.contactEmailsFormArray.removeAt(index - 1);
+    console.log('deleted email: ', index);
+  }
+
   deleteTag(index: number) {
     this.contactTagsFormArray.removeAt(index - 1);
     console.log('deleted tag: ', index);
+  }
+
+  deletePhone(index: number) {
+    this.contactPhonesFormArray.removeAt(index - 1);
+    console.log('deleted phone: ', index);
   }
 
   public deleteAllComponents() {
@@ -228,18 +255,13 @@ export class ContactInfoContainerComponent implements OnInit {
     const contactData = this.editContactForm.value;
     const contactId = this.contact.contactId;
 
-    //this.localStorageService.setItem('contact', contactData);
+    this.localStorageService.setItem('contact', contactData);
 
-    // console.log('info del form del usuaio', contactData);
-
-    // console.log(
-    //   'info de usuario de localStorage',
-    //   this.localStorageService.getItem('contact')
-    // );
+    this.displayContactInfo();
 
     this.resetValues();
 
-    console.log('Formulario con nuevos datos:', contactData);
+    // console.log('Formulario con nuevos datos:', contactData);
 
     this.updateContactService.updateContact(contactData, contactId).subscribe({
       next: (response) => {

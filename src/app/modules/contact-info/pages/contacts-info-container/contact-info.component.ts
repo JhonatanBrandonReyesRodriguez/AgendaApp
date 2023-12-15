@@ -89,6 +89,7 @@ export class ContactInfoContainerComponent implements OnInit {
 
   public displayContactInfo() {
     this.contact = this.localStorageService.getItem('contact');
+    console.log('Info del contacto', this.contact);
   }
 
   setFormData() {
@@ -186,8 +187,9 @@ export class ContactInfoContainerComponent implements OnInit {
     }
   }
 
-  deleteTag() {
-    alert('holi');
+  deleteTag(index: number) {
+    this.contactTagsFormArray.removeAt(index - 1);
+    console.log('deleted tag: ', index);
   }
 
   public deleteAllComponents() {
@@ -227,7 +229,7 @@ export class ContactInfoContainerComponent implements OnInit {
     const contactId = this.contact.contactId;
 
     // descomentar lo de abajo justo cuando tenga resuelto lo de los correos y etiquetas
-    // this.localStorageService.setItem('contact', contactData);
+    this.localStorageService.setItem('contact', contactData);
 
     // console.log('info del form del usuaio', contactData);
 
